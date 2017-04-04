@@ -1,0 +1,16 @@
+#Trigger to reduce the count of books by 1 from the BOOK table when a user buys a book and an entry in ORDER table is made.
+#Many to Many relationship is there b/w USER and BOOK table
+
+
+create trigger my_trig AFTER INSERT ON order_details
+for each row
+BEGIN
+declare counter int;
+if book.bid==order_details.bid
+ THEN
+  set counter=book.cnt;
+  UPDATE book
+  set book.cnt=counter-1;
+ END IF;
+END
+  
